@@ -8,3 +8,7 @@ def setup():
     circle(conf_final[0], conf_final[1], 20)
     for obstaculo in obstaculos:
         circle(obstaculo[0], obstaculo[1], obstaculo[2])
+    
+    xrand = int(random(0, width))
+    yrand = int(random(0, height))
+    circle(xrand, yrand, 10)
