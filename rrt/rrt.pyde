@@ -3,10 +3,12 @@ ancho = 400
 obstaculos = [[90, 150, 150], [300, 250, 100], [450, 100, 90]]
 conf_inicial = [150, 250]
 conf_final = [400, 230]
-eta = 2
+eta = 5
+tol = 10
 max_nodos = 1000
 r_robot = 20
-arbol = [[conf_inicial[0], conf_inicial[1], -1]]
+#arbol = [[conf_inicial[0], conf_inicial[1], -1]]
+arbol = obstaculos
 
 def colisiones(x, y):
     for obstaculo in obstaculos:
@@ -32,6 +34,19 @@ def calc_xnew(index_near, xrand, yrand):
     ynew = int(ynear + eta * (yrand - ynear) / norma)
     if colisiones(xnew, ynew) == False:
         return [xnew, ynew, index_near]
+    else:
+        return "colision"
+    
+def add_nodo(index_near, xrand, yrand):
+    qnew = calc_xnew(index_near, xrand, yrand)
+    if qnew != "colision":
+        arbol.append(qnew)
+        if dist(qnew[0], qnew[1], conf_final[0], conf_final[1]) < tol:
+            return "Reached"
+        else:
+            return "Advanced"
+    else:
+        return "No se agrega qnew"
 
 """
 def add_nodo(xnear, ynear, index_near, xrand, yrand, arbol, eta, r):
@@ -72,15 +87,18 @@ def setup():
     for obstaculo in obstaculos:
         circle(obstaculo[0], obstaculo[1], obstaculo[2])
     
-    xrand = int(random(0, largo))
-    yrand = int(random(0, ancho))
-    circle(xrand, yrand, r_robot * 2)
+    #xrand = int(random(0, largo))
+    #yrand = int(random(0, ancho))
+    #circle(xrand, yrand, r_robot * 2)
     # Prueba de nearest_neighbor
     #print(nearest_neighbor(xrand, yrand, obstaculos))
-    # Prueba de eta
+    # Prueba del paso eta
     #nuevo = calc_xnew(0, xrand, yrand)
     #arbol.append(nuevo)
     #circle(nuevo[0], nuevo[1], 5)
+    # Prueba de add_nodo
+    #nuevo = nearest_neighbor(conf_final[0], conf_final[1], obstaculos)
+    #print(nuevo, add_nodo(nuevo, conf_final[0], conf_final[1]))
     # Prueba de colisiones
     #print(colisiones(xrand, yrand))
     
