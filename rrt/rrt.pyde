@@ -3,6 +3,9 @@ ancho = 400
 obstaculos = [[90, 150, 150], [300, 250, 100], [450, 100, 90]]
 conf_inicial = [150, 250]
 conf_final = [400, 230]
+arbolito = [[conf_inicial[0], conf_inicial[1], -1]]
+eta = 2
+max_nodos = 1000
 
 def colisiones(x, y, r, obstaculos):
     for obstaculo in obstaculos:
