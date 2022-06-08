@@ -3,9 +3,9 @@ ancho = 400
 obstaculos = [[90, 150, 150], [300, 250, 100], [450, 100, 90]]
 conf_inicial = [150, 250]
 conf_final = [400, 230]
-arbolito = [[conf_inicial[0], conf_inicial[1], -1]]
 eta = 2
 max_nodos = 1000
+radio_robot = 20
 
 def colisiones(x, y, r, obstaculos):
     for obstaculo in obstaculos:
@@ -23,11 +23,20 @@ def nearest_neighbor(x, y, arbol):
             indice = arbol.index(nodo)
     return indice
 
-def add_nodo(xnear, ynear, index_near, xrand, yrand, arbol, eta):
+def add_nodo(xnear, ynear, index_near, xrand, yrand, arbol, eta, r):
     norma = dist(xnear, ynear, xrand, yrand)
     xnew = xnear + eta * (xrad - xnear) / norma
     ynew = ynear + eta * (yrad - ynear) / norma
-    arbol.append([int(xnew), int(ynew), index_near])
+    if !colisiones(xnew, ynew, r, arbol):
+        arbol.append([int(xnew), int(ynew), index_near])
+    
+def build_rrt(conf_inicial, conf_final, eta, max_nodos):
+    arbol = [[conf_inicial[0], conf_inicial[1], -1]]
+    k = 1
+    while k < max_nodos:
+        xrand = int(random(0, largo))
+        yrand = int(random(0, ancho))
+        pnew_index = nearest_neighbor(xrand, yrand, arbol)
 
 def setup():
     size(largo, ancho)
