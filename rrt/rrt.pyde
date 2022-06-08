@@ -20,6 +20,12 @@ def nearest_neighbor(x, y, arbol):
             indice = arbol.index(nodo)
     return indice
 
+def add_nodo(xnear, ynear, index_near, xrand, yrand, arbol, eta):
+    norma = dist(xnear, ynear, xrand, yrand)
+    xnew = xnear + eta * (xrad - xnear) / norma
+    ynew = ynear + eta * (yrad - ynear) / norma
+    arbol.append([int(xnew), int(ynew), index_near])
+
 def setup():
     size(largo, ancho)
     circle(conf_inicial[0], conf_inicial[1], 20)
