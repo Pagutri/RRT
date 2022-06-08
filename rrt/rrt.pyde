@@ -29,14 +29,21 @@ def add_nodo(xnear, ynear, index_near, xrand, yrand, arbol, eta, r):
     ynew = ynear + eta * (yrad - ynear) / norma
     if !colisiones(xnew, ynew, r, arbol):
         arbol.append([int(xnew), int(ynew), index_near])
+        if dist(xnew, ynew, conf_final[0], conf_final[1]) <= eta:
+            return "Reached"
+        else:
+            return "Advanced"
     
-def build_rrt(conf_inicial, conf_final, eta, max_nodos):
+def build_rrt(conf_inicial, conf_final, eta, max_nodos, r):
     arbol = [[conf_inicial[0], conf_inicial[1], -1]]
     k = 1
     while k < max_nodos:
         xrand = int(random(0, largo))
         yrand = int(random(0, ancho))
-        pnew_index = nearest_neighbor(xrand, yrand, arbol)
+        pnear_index = nearest_neighbor(xrand, yrand, arbol)
+        continuar = add_nodo(arbol[pnear_index][0], arbol[pnear_index][1], pnear_index, xrand, yrand, arbol, eta, r)
+        if continuar == "Reached":
+            return arbol
 
 def setup():
     size(largo, ancho)
