@@ -23,6 +23,16 @@ def nearest_neighbor(x, y, arbol):
             dist_min = dist_new
             indice = arbol.index(nodo)
     return indice
+
+def calc_xnew(index_near, xrand, yrand):
+    xnear = arbol[index_near][0]
+    ynear = arbol[index_near][1]
+    norma = dist(xnear, ynear, xrand, yrand)
+    xnew = int(xnear + eta * (xrand - xnear) / norma)
+    ynew = int(ynear + eta * (yrand - ynear) / norma)
+    if colisiones(xnew, ynew) == False:
+        return [xnew, ynew, index_near]
+
 """
 def add_nodo(xnear, ynear, index_near, xrand, yrand, arbol, eta, r):
     norma = dist(xnear, ynear, xrand, yrand)
@@ -66,7 +76,11 @@ def setup():
     yrand = int(random(0, ancho))
     circle(xrand, yrand, r_robot * 2)
     # Prueba de nearest_neighbor
-    print(nearest_neighbor(xrand, yrand, obstaculos))
+    #print(nearest_neighbor(xrand, yrand, obstaculos))
+    # Prueba de eta
+    #nuevo = calc_xnew(0, xrand, yrand)
+    #arbol.append(nuevo)
+    #circle(nuevo[0], nuevo[1], 5)
     # Prueba de colisiones
     #print(colisiones(xrand, yrand))
     
