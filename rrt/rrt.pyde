@@ -33,6 +33,7 @@ def add_nodo(xnear, ynear, index_near, xrand, yrand, arbol, eta, r):
             return "Reached"
         else:
             return "Advanced"
+    return "Trapped"
     
 def build_rrt(conf_inicial, conf_final, eta, max_nodos, r):
     arbol = [[conf_inicial[0], conf_inicial[1], -1]]
@@ -44,6 +45,9 @@ def build_rrt(conf_inicial, conf_final, eta, max_nodos, r):
         continuar = add_nodo(arbol[pnear_index][0], arbol[pnear_index][1], pnear_index, xrand, yrand, arbol, eta, r)
         if continuar == "Reached":
             return arbol
+        elif continuar == "Advanced":
+            k++
+        
 
 def setup():
     size(largo, ancho)
