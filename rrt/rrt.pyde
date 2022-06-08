@@ -47,6 +47,8 @@ def build_rrt(conf_inicial, conf_final, eta, max_nodos, r):
             return arbol
         elif continuar == "Advanced":
             k++
+    print("No se alcanzó")
+    return arbol
         
 
 def setup():
